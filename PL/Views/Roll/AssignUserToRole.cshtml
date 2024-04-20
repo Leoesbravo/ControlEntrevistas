@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "AssignUserToRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AssignUserToRole</h2>
+
+@using (Html.BeginForm("AssignUserToRole", "Roll", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="text" name="userId" class="form-control"/>
+    <input type="text" name="roleName" class="form-control"/>
+    <input type="submit" value="Agregar" class="btn btn-success" />
+}
+

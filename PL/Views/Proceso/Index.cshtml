@@ -1,0 +1,150 @@
+﻿@model ML.Proceso
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2 class="mt-5">Mi Panel</h2>
+    <hr />
+    <a class="btn btn-success mb-3" onclick="OpenForm()">
+        <i class="fas fa-plus-circle me-1"></i>Nueva Proceso
+    </a>
+    <section id="formulario" style="display: none;">
+        <h2 class="mt-5">Agregar Nuevo Proceso</h2>
+        <hr />
+
+        @using (Html.BeginForm("AddProceso", "Proceso", FormMethod.Post, new { enctype = "multipart/form-data", @class = "mt-4", @id = "form" }))
+        {
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Empresa, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Empresa, new { @class = "form-control",@placheholder="" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Cliente, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Cliente, new { @class = "form-control", @placeholder = "Dejar vacio si no hay" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.NumeroContacto, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.NumeroContacto, new { @class = "form-control" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Postulado, htmlAttributes: new { @class = "form-label" })
+                    <br />
+                    @Html.RadioButtonFor(model => model.Postulado, true, new { @class = "form-check-input", id = "postulado-true" })
+                    <label class="form-check-label" for="postulado-true">Sí</label>
+                    @Html.RadioButtonFor(model => model.Postulado, false, new { @class = "form-check-input", id = "postulado-false" })
+                    <label class="form-check-label" for="postulado-false">No</label>
+                    <br />
+                    <br />
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.LigaVacante, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.LigaVacante, new { @class = "form-control", @placeholder="Coloca el link de la vacante" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Estatus.IdEstatus, "Estatus", htmlAttributes: new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.Estatus.IdEstatus, new SelectList(Model.Estatus.EstatusList, "IdEstatus", "Descripcion"), "Selecciona una opción", new { @class = "form-control" })
+
+
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.BolsaTrabajo.IdBolsaTrabajo, "Bolsa de Trabajo", htmlAttributes: new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.BolsaTrabajo.IdBolsaTrabajo, new SelectList(Model.BolsaTrabajo.MedioList, "IdBolsaTrabajo", "Medio"), "Selecciona una opción", new { @class = "form-control" })
+
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.FechaContacto, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.FechaContacto, new { @class = "form-control", @type = "date" })
+                </div>
+            </div>
+            <br />
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center">
+                    <input type="submit" value="Enviar" class="btn btn-success col-md-6" />
+                    <input onclick="limpiarForm()" value="Cancelar" class="btn btn-danger col-md-6" />
+                </div>
+            </div>
+            <hr />
+            <br />
+        }
+    </section>
+    @if (Model.Procesos != null && Model.Procesos.Count > 0)
+    {
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr class="table-secondary text-center">
+                    <th scope="col">Empresa</th>
+                    <th scope="col">Fecha De Contacto</th>
+                    <th scope="col">Estatus</th>
+                    <th scope="col">Ultimo Filtro</th>
+                    <th scope="col">Fecha Del Ultimo Filtro</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="table-dark">
+                @foreach (ML.Proceso proceso in Model.Procesos)
+                {
+                    <tr class="text-center">
+                        <td>@proceso.Empresa</td>
+                        <td>@proceso.FechaContacto</td>
+                        <td>@proceso.Estatus.Descripcion</td>
+                        <td>@proceso.Estatus.Descripcion</td>
+                        <td>@proceso.Estatus.Descripcion</td>
+                        <td>
+                            <a class="btn btn-outline-warning" data-bs-toggle="tooltip" data-bs-title="Editar Proceso"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a class="btn btn-outline-info" data-bs-toggle="tooltip" data-bs-title="Agregar Filtro" ><i class="fa-regular fa-square-plus"></i></a>
+                            <a class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-title="Ver Detalle" onclick="VerDetalle('@proceso.IdProceso')"> <i class="fa-solid fa-magnifying-glass"></i></a>
+                            <a class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-title="Eliminar Proceso"> <i class="fa-solid fa-delete-left"></i></a>
+                        </td>
+                    </tr>
+                    <tr id="@proceso.IdProceso" style="display: none;">
+                        <td>@proceso.Empresa</td>
+                        <td>@proceso.FechaContacto</td>
+                        <td>@proceso.Estatus.Descripcion</td>
+                        <td>@proceso.Estatus.Descripcion</td>
+                        <td>@proceso.Estatus.Descripcion</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h3 class="text-danger">No tienes procesos registrados</h3>
+    }
+
+</div>
+
+@{
+    var letra = "@";
+    var script = "https://cdn.jsdelivr.net/npm/" + letra + "popperjs/core@2.11.8/dist/umd/popper.min.js";
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="@script"></script>
+@Scripts.Render("~/bundles/bootstrap")
+<script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+    function VerDetalle(id) {
+        var detalleRow = $('#' + id);
+        detalleRow.toggle();
+    }
+    function OpenForm() {
+        $('#formulario').slideToggle();
+        $('html, body').animate({
+            scrollTop: $('#formulario').offset().top
+        }, 'slow');
+    }
+    function limpiarForm() {
+        $('#formulario').slideToggle(1000);
+        $('#form')[0].reset();
+    }
+</script>
+

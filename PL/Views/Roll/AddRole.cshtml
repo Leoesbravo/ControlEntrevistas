@@ -1,0 +1,14 @@
+﻿@model PL.Models.RegisterRoleViewModel
+@{
+    ViewBag.Title = "AddRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AddRole</h2>
+@using (Html.BeginForm("AddRole", "Roll", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.TextBoxFor(model => model.RoleName, new { @class = "form-control" })
+    <input type="submit" value="Agregar" class="btn btn-success" />
+}
+
+

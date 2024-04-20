@@ -1,0 +1,56 @@
+﻿@model ML.Proceso
+@{
+    ViewBag.Title = "AddProceso";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2 class="mt-5">Agregar Nuevo Proceso</h2>
+    <hr />
+
+    @using (Html.BeginForm("AddProceso", "Proceso", FormMethod.Post, new { enctype = "multipart/form-data", @class = "mt-4" }))
+    {
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.NumeroContacto, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.NumeroContacto, new { @class = "form-control" })
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.Empresa, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Empresa, new { @class = "form-control" })
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.Cliente, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Cliente, new { @class = "form-control" })
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.LigaVacante, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.LigaVacante, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.Postulado, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.Postulado, new { @class = "form-control" })
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.FechaContacto, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.FechaContacto, new { @class = "form-control", @type="date" })
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.Estatus.IdEstatus, "Estatus", htmlAttributes: new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.Estatus.IdEstatus, new SelectList(Model.Estatus.EstatusList, "IdEstatus", "Descripcion"), "Selecciona una opción", new { @class = "form-control" })
+                </div>
+                <div class="mb-3">
+                    @Html.LabelFor(model => model.BolsaTrabajo.IdBolsaTrabajo, "Bolsa de Trabajo", htmlAttributes: new { @class = "form-label" })
+                    @Html.DropDownListFor(model => model.BolsaTrabajo.IdBolsaTrabajo, new SelectList(Model.BolsaTrabajo.MedioList, "IdBolsaTrabajo", "Medio"), "Selecciona una opción", new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="text-end">
+            <input type="submit" value="Agregar" class="btn btn-success" />
+        </div>
+    }
+</div>
+

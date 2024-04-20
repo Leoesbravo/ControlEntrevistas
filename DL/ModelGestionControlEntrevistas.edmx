@@ -1,0 +1,964 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GestionControlEntrevistasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+          <Property Name="ApellidoPaterno" Type="nvarchar(max)" />
+          <Property Name="ApellidoMaterno" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="BolsaTrabajo">
+          <Key>
+            <PropertyRef Name="IdBolsaTrabajo" />
+          </Key>
+          <Property Name="IdBolsaTrabajo" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Estatus">
+          <Key>
+            <PropertyRef Name="IdEstatus" />
+          </Key>
+          <Property Name="IdEstatus" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Filtro">
+          <Key>
+            <PropertyRef Name="IdFiltro" />
+          </Key>
+          <Property Name="IdFiltro" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Generacion">
+          <Key>
+            <PropertyRef Name="IdGeneracion" />
+          </Key>
+          <Property Name="IdGeneracion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="IdPerfil" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="Historico">
+          <Key>
+            <PropertyRef Name="IdHistorico" />
+          </Key>
+          <Property Name="IdHistorico" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProceso" Type="int" />
+          <Property Name="IdFiltro" Type="tinyint" />
+          <Property Name="FechaModificacion" Type="date" />
+          <Property Name="Detalle" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Perfil">
+          <Key>
+            <PropertyRef Name="IdPerfil" />
+          </Key>
+          <Property Name="IdPerfil" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tipo" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Proceso">
+          <Key>
+            <PropertyRef Name="IdProceso" />
+          </Key>
+          <Property Name="IdProceso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdEstatus" Type="tinyint" />
+          <Property Name="IdBolsaTrabajo" Type="tinyint" />
+          <Property Name="NumeroContacto" Type="varchar" MaxLength="20" />
+          <Property Name="Empresa" Type="varchar" MaxLength="50" />
+          <Property Name="Cliente" Type="varchar" MaxLength="50" />
+          <Property Name="LigaVacante" Type="varchar" MaxLength="500" />
+          <Property Name="Postulado" Type="bit" />
+          <Property Name="FechaContacto" Type="date" />
+          <Property Name="IdRecurso" Type="int" />
+        </EntityType>
+        <EntityType Name="Recurso">
+          <Key>
+            <PropertyRef Name="IdRecurso" />
+          </Key>
+          <Property Name="IdRecurso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="nvarchar" MaxLength="128" />
+          <Property Name="IdGeneracion" Type="int" />
+        </EntityType>
+        <Association Name="FK__Generacio__IdPer__2A4B4B5E">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="0..1" />
+          <End Role="Generacion" Type="Self.Generacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="IdPerfil" />
+            </Principal>
+            <Dependent Role="Generacion">
+              <PropertyRef Name="IdPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historico__IdFil__44FF419A">
+          <End Role="Filtro" Type="Self.Filtro" Multiplicity="0..1" />
+          <End Role="Historico" Type="Self.Historico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filtro">
+              <PropertyRef Name="IdFiltro" />
+            </Principal>
+            <Dependent Role="Historico">
+              <PropertyRef Name="IdFiltro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historico__IdPro__440B1D61">
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="0..1" />
+          <End Role="Historico" Type="Self.Historico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proceso">
+              <PropertyRef Name="IdProceso" />
+            </Principal>
+            <Dependent Role="Historico">
+              <PropertyRef Name="IdProceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Proceso__IdBolsa__412EB0B6">
+          <End Role="BolsaTrabajo" Type="Self.BolsaTrabajo" Multiplicity="0..1" />
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BolsaTrabajo">
+              <PropertyRef Name="IdBolsaTrabajo" />
+            </Principal>
+            <Dependent Role="Proceso">
+              <PropertyRef Name="IdBolsaTrabajo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Proceso__IdEstat__403A8C7D">
+          <End Role="Estatus" Type="Self.Estatus" Multiplicity="0..1" />
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estatus">
+              <PropertyRef Name="IdEstatus" />
+            </Principal>
+            <Dependent Role="Proceso">
+              <PropertyRef Name="IdEstatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Proceso__IdRecur__48CFD27E">
+          <End Role="Recurso" Type="Self.Recurso" Multiplicity="0..1" />
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recurso">
+              <PropertyRef Name="IdRecurso" />
+            </Principal>
+            <Dependent Role="Proceso">
+              <PropertyRef Name="IdRecurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recurso__IdGener__3A81B327">
+          <End Role="Generacion" Type="Self.Generacion" Multiplicity="0..1" />
+          <End Role="Recurso" Type="Self.Recurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Generacion">
+              <PropertyRef Name="IdGeneracion" />
+            </Principal>
+            <Dependent Role="Recurso">
+              <PropertyRef Name="IdGeneracion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recurso__IdUsuar__398D8EEE">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Recurso" Type="Self.Recurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Recurso">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ProcesoAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdEstatus" Type="tinyint" Mode="In" />
+          <Parameter Name="IdBolsaTrabajo" Type="tinyint" Mode="In" />
+          <Parameter Name="NumeroContacto" Type="varchar" Mode="In" />
+          <Parameter Name="Empresa" Type="varchar" Mode="In" />
+          <Parameter Name="Cliente" Type="varchar" Mode="In" />
+          <Parameter Name="LigaVacante" Type="varchar" Mode="In" />
+          <Parameter Name="Postulado" Type="bit" Mode="In" />
+          <Parameter Name="FechaContacto" Type="date" Mode="In" />
+          <Parameter Name="IdRecurso" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ProcesoAddFiltro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProceso" Type="int" Mode="In" />
+          <Parameter Name="IdFiltro" Type="tinyint" Mode="In" />
+          <Parameter Name="Detalle" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ProcesoGetAllByIdRecurso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdRecurso" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ProcesoGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProceso" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ProcesoUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdEstatus" Type="tinyint" Mode="In" />
+          <Parameter Name="IdBolsaTrabajo" Type="tinyint" Mode="In" />
+          <Parameter Name="NumeroContacto" Type="varchar" Mode="In" />
+          <Parameter Name="Empresa" Type="varchar" Mode="In" />
+          <Parameter Name="Cliente" Type="varchar" Mode="In" />
+          <Parameter Name="LigaVacante" Type="varchar" Mode="In" />
+          <Parameter Name="Postulado" Type="bit" Mode="In" />
+          <Parameter Name="FechaContacto" Type="date" Mode="In" />
+          <Parameter Name="IdRecurso" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="GestionControlEntrevistasModelStoreContainer">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BolsaTrabajo" EntityType="Self.BolsaTrabajo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estatus" EntityType="Self.Estatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Filtro" EntityType="Self.Filtro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Generacion" EntityType="Self.Generacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Historico" EntityType="Self.Historico" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Perfil" EntityType="Self.Perfil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proceso" EntityType="Self.Proceso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recurso" EntityType="Self.Recurso" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Generacio__IdPer__2A4B4B5E" Association="Self.FK__Generacio__IdPer__2A4B4B5E">
+            <End Role="Perfil" EntitySet="Perfil" />
+            <End Role="Generacion" EntitySet="Generacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historico__IdFil__44FF419A" Association="Self.FK__Historico__IdFil__44FF419A">
+            <End Role="Filtro" EntitySet="Filtro" />
+            <End Role="Historico" EntitySet="Historico" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historico__IdPro__440B1D61" Association="Self.FK__Historico__IdPro__440B1D61">
+            <End Role="Proceso" EntitySet="Proceso" />
+            <End Role="Historico" EntitySet="Historico" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Proceso__IdBolsa__412EB0B6" Association="Self.FK__Proceso__IdBolsa__412EB0B6">
+            <End Role="BolsaTrabajo" EntitySet="BolsaTrabajo" />
+            <End Role="Proceso" EntitySet="Proceso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Proceso__IdEstat__403A8C7D" Association="Self.FK__Proceso__IdEstat__403A8C7D">
+            <End Role="Estatus" EntitySet="Estatus" />
+            <End Role="Proceso" EntitySet="Proceso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Proceso__IdRecur__48CFD27E" Association="Self.FK__Proceso__IdRecur__48CFD27E">
+            <End Role="Recurso" EntitySet="Recurso" />
+            <End Role="Proceso" EntitySet="Proceso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recurso__IdGener__3A81B327" Association="Self.FK__Recurso__IdGener__3A81B327">
+            <End Role="Generacion" EntitySet="Generacion" />
+            <End Role="Recurso" EntitySet="Recurso" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recurso__IdUsuar__398D8EEE" Association="Self.FK__Recurso__IdUsuar__398D8EEE">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Recurso" EntitySet="Recurso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GestionControlEntrevistasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ApellidoMaterno" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="Recursoes" Relationship="Self.FK__Recurso__IdUsuar__398D8EEE" FromRole="AspNetUsers" ToRole="Recurso" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="BolsaTrabajo">
+          <Key>
+            <PropertyRef Name="IdBolsaTrabajo" />
+          </Key>
+          <Property Name="IdBolsaTrabajo" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Procesoes" Relationship="GestionControlEntrevistasModel.FK__Proceso__IdBolsa__412EB0B6" FromRole="BolsaTrabajo" ToRole="Proceso" />
+        </EntityType>
+        <EntityType Name="Estatu">
+          <Key>
+            <PropertyRef Name="IdEstatus" />
+          </Key>
+          <Property Name="IdEstatus" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Procesoes" Relationship="GestionControlEntrevistasModel.FK__Proceso__IdEstat__403A8C7D" FromRole="Estatu" ToRole="Proceso" />
+        </EntityType>
+        <EntityType Name="Filtro">
+          <Key>
+            <PropertyRef Name="IdFiltro" />
+          </Key>
+          <Property Name="IdFiltro" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Historicoes" Relationship="Self.FK__Historico__IdFil__44FF419A" FromRole="Filtro" ToRole="Historico" />
+        </EntityType>
+        <EntityType Name="Generacion">
+          <Key>
+            <PropertyRef Name="IdGeneracion" />
+          </Key>
+          <Property Name="IdGeneracion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdPerfil" Type="Byte" />
+          <NavigationProperty Name="Perfil" Relationship="Self.FK__Generacio__IdPer__2A4B4B5E" FromRole="Generacion" ToRole="Perfil" />
+          <NavigationProperty Name="Recursoes" Relationship="Self.FK__Recurso__IdGener__3A81B327" FromRole="Generacion" ToRole="Recurso" />
+        </EntityType>
+        <EntityType Name="Historico">
+          <Key>
+            <PropertyRef Name="IdHistorico" />
+          </Key>
+          <Property Name="IdHistorico" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProceso" Type="Int32" />
+          <Property Name="IdFiltro" Type="Byte" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="0" />
+          <Property Name="Detalle" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Filtro" Relationship="Self.FK__Historico__IdFil__44FF419A" FromRole="Historico" ToRole="Filtro" />
+          <NavigationProperty Name="Proceso" Relationship="GestionControlEntrevistasModel.FK__Historico__IdPro__440B1D61" FromRole="Historico" ToRole="Proceso" />
+        </EntityType>
+        <EntityType Name="Perfil">
+          <Key>
+            <PropertyRef Name="IdPerfil" />
+          </Key>
+          <Property Name="IdPerfil" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Generacions" Relationship="Self.FK__Generacio__IdPer__2A4B4B5E" FromRole="Perfil" ToRole="Generacion" />
+        </EntityType>
+        <EntityType Name="Recurso">
+          <Key>
+            <PropertyRef Name="IdRecurso" />
+          </Key>
+          <Property Name="IdRecurso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IdGeneracion" Type="Int32" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK__Recurso__IdUsuar__398D8EEE" FromRole="Recurso" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Generacion" Relationship="Self.FK__Recurso__IdGener__3A81B327" FromRole="Recurso" ToRole="Generacion" />
+          <NavigationProperty Name="Procesoes" Relationship="GestionControlEntrevistasModel.FK__Proceso__IdRecur__48CFD27E" FromRole="Recurso" ToRole="Proceso" />
+          </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recurso__IdUsuar__398D8EEE">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="Recurso" Type="Self.Recurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Recurso">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historico__IdFil__44FF419A">
+          <End Role="Filtro" Type="Self.Filtro" Multiplicity="0..1" />
+          <End Role="Historico" Type="Self.Historico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Filtro">
+              <PropertyRef Name="IdFiltro" />
+            </Principal>
+            <Dependent Role="Historico">
+              <PropertyRef Name="IdFiltro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Generacio__IdPer__2A4B4B5E">
+          <End Role="Perfil" Type="Self.Perfil" Multiplicity="0..1" />
+          <End Role="Generacion" Type="Self.Generacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perfil">
+              <PropertyRef Name="IdPerfil" />
+            </Principal>
+            <Dependent Role="Generacion">
+              <PropertyRef Name="IdPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recurso__IdGener__3A81B327">
+          <End Role="Generacion" Type="Self.Generacion" Multiplicity="0..1" />
+          <End Role="Recurso" Type="Self.Recurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Generacion">
+              <PropertyRef Name="IdGeneracion" />
+            </Principal>
+            <Dependent Role="Recurso">
+              <PropertyRef Name="IdGeneracion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="GestionControlEntrevistasEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="BolsaTrabajoes" EntityType="Self.BolsaTrabajo" />
+          <EntitySet Name="Estatus" EntityType="Self.Estatu" />
+          <EntitySet Name="Filtroes" EntityType="Self.Filtro" />
+          <EntitySet Name="Generacions" EntityType="Self.Generacion" />
+          <EntitySet Name="Historicoes" EntityType="Self.Historico" />
+          <EntitySet Name="Perfils" EntityType="Self.Perfil" />
+          <EntitySet Name="Recursoes" EntityType="Self.Recurso" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recurso__IdUsuar__398D8EEE" Association="Self.FK__Recurso__IdUsuar__398D8EEE">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Recurso" EntitySet="Recursoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historico__IdFil__44FF419A" Association="Self.FK__Historico__IdFil__44FF419A">
+            <End Role="Filtro" EntitySet="Filtroes" />
+            <End Role="Historico" EntitySet="Historicoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Generacio__IdPer__2A4B4B5E" Association="Self.FK__Generacio__IdPer__2A4B4B5E">
+            <End Role="Perfil" EntitySet="Perfils" />
+            <End Role="Generacion" EntitySet="Generacions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recurso__IdGener__3A81B327" Association="Self.FK__Recurso__IdGener__3A81B327">
+            <End Role="Generacion" EntitySet="Generacions" />
+            <End Role="Recurso" EntitySet="Recursoes" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <FunctionImport Name="ProcesoGetAllByIdRecurso" ReturnType="Collection(GestionControlEntrevistasModel.ProcesoGetAllByIdRecurso_Result)">
+          <Parameter Name="IdRecurso" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Procesoes" EntityType="GestionControlEntrevistasModel.Proceso" />
+          <AssociationSet Name="FK__Proceso__IdBolsa__412EB0B6" Association="GestionControlEntrevistasModel.FK__Proceso__IdBolsa__412EB0B6">
+            <End Role="BolsaTrabajo" EntitySet="BolsaTrabajoes" />
+            <End Role="Proceso" EntitySet="Procesoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Proceso__IdEstat__403A8C7D" Association="GestionControlEntrevistasModel.FK__Proceso__IdEstat__403A8C7D">
+            <End Role="Estatu" EntitySet="Estatus" />
+            <End Role="Proceso" EntitySet="Procesoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historico__IdPro__440B1D61" Association="GestionControlEntrevistasModel.FK__Historico__IdPro__440B1D61">
+            <End Role="Proceso" EntitySet="Procesoes" />
+            <End Role="Historico" EntitySet="Historicoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Proceso__IdRecur__48CFD27E" Association="GestionControlEntrevistasModel.FK__Proceso__IdRecur__48CFD27E">
+            <End Role="Recurso" EntitySet="Recursoes" />
+            <End Role="Proceso" EntitySet="Procesoes" />
+          </AssociationSet>
+          <FunctionImport Name="ProcesoAdd">
+            <Parameter Name="IdEstatus" Mode="In" Type="Byte" />
+            <Parameter Name="IdBolsaTrabajo" Mode="In" Type="Byte" />
+            <Parameter Name="NumeroContacto" Mode="In" Type="String" />
+            <Parameter Name="Empresa" Mode="In" Type="String" />
+            <Parameter Name="Cliente" Mode="In" Type="String" />
+            <Parameter Name="LigaVacante" Mode="In" Type="String" />
+            <Parameter Name="Postulado" Mode="In" Type="Boolean" />
+            <Parameter Name="FechaContacto" Mode="In" Type="DateTime" />
+            <Parameter Name="IdRecurso" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ProcesoAddFiltro">
+            <Parameter Name="IdProceso" Mode="In" Type="Int32" />
+            <Parameter Name="IdFiltro" Mode="In" Type="Byte" />
+            <Parameter Name="Detalle" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ProcesoUpdate">
+            <Parameter Name="IdEstatus" Mode="In" Type="Byte" />
+            <Parameter Name="IdBolsaTrabajo" Mode="In" Type="Byte" />
+            <Parameter Name="NumeroContacto" Mode="In" Type="String" />
+            <Parameter Name="Empresa" Mode="In" Type="String" />
+            <Parameter Name="Cliente" Mode="In" Type="String" />
+            <Parameter Name="LigaVacante" Mode="In" Type="String" />
+            <Parameter Name="Postulado" Mode="In" Type="Boolean" />
+            <Parameter Name="FechaContacto" Mode="In" Type="DateTime" />
+            <Parameter Name="IdRecurso" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ProcesoGetById" ReturnType="Collection(GestionControlEntrevistasModel.ProcesoGetById_Result)">
+            <Parameter Name="IdProceso" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="ProcesoGetAllByIdRecurso_Result">
+          <Property Type="Int32" Name="IdProceso" Nullable="false" />
+          <Property Type="DateTime" Name="FechaContacto" Nullable="true" />
+          <Property Type="Boolean" Name="Postulado" Nullable="true" />
+          <Property Type="Byte" Name="IdEstatus" Nullable="true" />
+          <Property Type="Byte" Name="IdBolsaTrabajo" Nullable="true" />
+          <Property Type="Int32" Name="IdRecurso" Nullable="true" />
+          <Property Type="String" Name="NumeroContacto" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Cliente" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LigaVacante" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Empresa" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BolsaNombre" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="Proceso">
+          <Key>
+            <PropertyRef Name="IdProceso" />
+          </Key>
+          <Property Name="IdProceso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEstatus" Type="Byte" />
+          <Property Name="IdBolsaTrabajo" Type="Byte" />
+          <Property Name="NumeroContacto" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Empresa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Cliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LigaVacante" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Postulado" Type="Boolean" />
+          <Property Name="FechaContacto" Type="DateTime" Precision="0" />
+          <Property Name="IdRecurso" Type="Int32" />
+          <NavigationProperty Name="BolsaTrabajo" Relationship="GestionControlEntrevistasModel.FK__Proceso__IdBolsa__412EB0B6" FromRole="Proceso" ToRole="BolsaTrabajo" />
+          <NavigationProperty Name="Estatu" Relationship="GestionControlEntrevistasModel.FK__Proceso__IdEstat__403A8C7D" FromRole="Proceso" ToRole="Estatu" />
+          <NavigationProperty Name="Historicoes" Relationship="GestionControlEntrevistasModel.FK__Historico__IdPro__440B1D61" FromRole="Proceso" ToRole="Historico" />
+          <NavigationProperty Name="Recurso" Relationship="GestionControlEntrevistasModel.FK__Proceso__IdRecur__48CFD27E" FromRole="Proceso" ToRole="Recurso" />
+        </EntityType>
+        <Association Name="FK__Proceso__IdBolsa__412EB0B6">
+          <End Type="GestionControlEntrevistasModel.BolsaTrabajo" Role="BolsaTrabajo" Multiplicity="0..1" />
+          <End Type="GestionControlEntrevistasModel.Proceso" Role="Proceso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BolsaTrabajo">
+              <PropertyRef Name="IdBolsaTrabajo" />
+            </Principal>
+            <Dependent Role="Proceso">
+              <PropertyRef Name="IdBolsaTrabajo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Proceso__IdEstat__403A8C7D">
+          <End Type="GestionControlEntrevistasModel.Estatu" Role="Estatu" Multiplicity="0..1" />
+          <End Type="GestionControlEntrevistasModel.Proceso" Role="Proceso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estatu">
+              <PropertyRef Name="IdEstatus" />
+            </Principal>
+            <Dependent Role="Proceso">
+              <PropertyRef Name="IdEstatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historico__IdPro__440B1D61">
+          <End Type="GestionControlEntrevistasModel.Proceso" Role="Proceso" Multiplicity="0..1" />
+          <End Type="GestionControlEntrevistasModel.Historico" Role="Historico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proceso">
+              <PropertyRef Name="IdProceso" />
+            </Principal>
+            <Dependent Role="Historico">
+              <PropertyRef Name="IdProceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Proceso__IdRecur__48CFD27E">
+          <End Type="GestionControlEntrevistasModel.Recurso" Role="Recurso" Multiplicity="0..1" />
+          <End Type="GestionControlEntrevistasModel.Proceso" Role="Proceso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recurso">
+              <PropertyRef Name="IdRecurso" />
+            </Principal>
+            <Dependent Role="Proceso">
+              <PropertyRef Name="IdRecurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="ProcesoGetById_Result">
+          <Property Type="Int32" Name="IdProceso" Nullable="false" />
+          <Property Type="Byte" Name="IdEstatus" Nullable="true" />
+          <Property Type="Byte" Name="IdBolsaTrabajo" Nullable="true" />
+          <Property Type="String" Name="NumeroContacto" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Empresa" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Cliente" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LigaVacante" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="Postulado" Nullable="true" />
+          <Property Type="DateTime" Name="FechaContacto" Nullable="true" />
+          <Property Type="Int32" Name="IdRecurso" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GestionControlEntrevistasModelStoreContainer" CdmEntityContainer="GestionControlEntrevistasEntities">
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="GestionControlEntrevistasModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="GestionControlEntrevistasModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="GestionControlEntrevistasModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="GestionControlEntrevistasModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BolsaTrabajoes">
+            <EntityTypeMapping TypeName="GestionControlEntrevistasModel.BolsaTrabajo">
+              <MappingFragment StoreEntitySet="BolsaTrabajo">
+                <ScalarProperty Name="IdBolsaTrabajo" ColumnName="IdBolsaTrabajo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estatus">
+            <EntityTypeMapping TypeName="GestionControlEntrevistasModel.Estatu">
+              <MappingFragment StoreEntitySet="Estatus">
+                <ScalarProperty Name="IdEstatus" ColumnName="IdEstatus" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Filtroes">
+            <EntityTypeMapping TypeName="GestionControlEntrevistasModel.Filtro">
+              <MappingFragment StoreEntitySet="Filtro">
+                <ScalarProperty Name="IdFiltro" ColumnName="IdFiltro" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Generacions">
+            <EntityTypeMapping TypeName="GestionControlEntrevistasModel.Generacion">
+              <MappingFragment StoreEntitySet="Generacion">
+                <ScalarProperty Name="IdGeneracion" ColumnName="IdGeneracion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Historicoes">
+            <EntityTypeMapping TypeName="GestionControlEntrevistasModel.Historico">
+              <MappingFragment StoreEntitySet="Historico">
+                <ScalarProperty Name="IdHistorico" ColumnName="IdHistorico" />
+                <ScalarProperty Name="IdProceso" ColumnName="IdProceso" />
+                <ScalarProperty Name="IdFiltro" ColumnName="IdFiltro" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Perfils">
+            <EntityTypeMapping TypeName="GestionControlEntrevistasModel.Perfil">
+              <MappingFragment StoreEntitySet="Perfil">
+                <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recursoes">
+            <EntityTypeMapping TypeName="GestionControlEntrevistasModel.Recurso">
+              <MappingFragment StoreEntitySet="Recurso">
+                <ScalarProperty Name="IdRecurso" ColumnName="IdRecurso" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdGeneracion" ColumnName="IdGeneracion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="GestionControlEntrevistasModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="ProcesoGetAllByIdRecurso" FunctionName="GestionControlEntrevistasModel.Store.ProcesoGetAllByIdRecurso">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GestionControlEntrevistasModel.ProcesoGetAllByIdRecurso_Result">
+                <ScalarProperty Name="IdProceso" ColumnName="IdProceso" />
+                <ScalarProperty Name="FechaContacto" ColumnName="FechaContacto" />
+                <ScalarProperty Name="Postulado" ColumnName="Postulado" />
+                <ScalarProperty Name="IdEstatus" ColumnName="IdEstatus" />
+                <ScalarProperty Name="IdBolsaTrabajo" ColumnName="IdBolsaTrabajo" />
+                <ScalarProperty Name="IdRecurso" ColumnName="IdRecurso" />
+                <ScalarProperty Name="NumeroContacto" ColumnName="NumeroContacto" />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="LigaVacante" ColumnName="LigaVacante" />
+                <ScalarProperty Name="Empresa" ColumnName="Empresa" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="BolsaNombre" ColumnName="BolsaNombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Procesoes">
+            <EntityTypeMapping TypeName="GestionControlEntrevistasModel.Proceso">
+              <MappingFragment StoreEntitySet="Proceso">
+                <ScalarProperty Name="IdRecurso" ColumnName="IdRecurso" />
+                <ScalarProperty Name="FechaContacto" ColumnName="FechaContacto" />
+                <ScalarProperty Name="Postulado" ColumnName="Postulado" />
+                <ScalarProperty Name="LigaVacante" ColumnName="LigaVacante" />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="Empresa" ColumnName="Empresa" />
+                <ScalarProperty Name="NumeroContacto" ColumnName="NumeroContacto" />
+                <ScalarProperty Name="IdBolsaTrabajo" ColumnName="IdBolsaTrabajo" />
+                <ScalarProperty Name="IdEstatus" ColumnName="IdEstatus" />
+                <ScalarProperty Name="IdProceso" ColumnName="IdProceso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ProcesoAdd" FunctionName="GestionControlEntrevistasModel.Store.ProcesoAdd" />
+          <FunctionImportMapping FunctionImportName="ProcesoAddFiltro" FunctionName="GestionControlEntrevistasModel.Store.ProcesoAddFiltro" />
+          <FunctionImportMapping FunctionImportName="ProcesoUpdate" FunctionName="GestionControlEntrevistasModel.Store.ProcesoUpdate" />
+          <FunctionImportMapping FunctionImportName="ProcesoGetById" FunctionName="GestionControlEntrevistasModel.Store.ProcesoGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GestionControlEntrevistasModel.ProcesoGetById_Result">
+                <ScalarProperty Name="IdProceso" ColumnName="IdProceso" />
+                <ScalarProperty Name="IdEstatus" ColumnName="IdEstatus" />
+                <ScalarProperty Name="IdBolsaTrabajo" ColumnName="IdBolsaTrabajo" />
+                <ScalarProperty Name="NumeroContacto" ColumnName="NumeroContacto" />
+                <ScalarProperty Name="Empresa" ColumnName="Empresa" />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="LigaVacante" ColumnName="LigaVacante" />
+                <ScalarProperty Name="Postulado" ColumnName="Postulado" />
+                <ScalarProperty Name="FechaContacto" ColumnName="FechaContacto" />
+                <ScalarProperty Name="IdRecurso" ColumnName="IdRecurso" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
