@@ -4,31 +4,33 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0f8a53d36d9149db815e86fa07b7f0ec" Name="Diagram1" ZoomLevel="77">
+      <Diagram DiagramId="0f8a53d36d9149db815e86fa07b7f0ec" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="GestionControlEntrevistasModel.AspNetRole" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="GestionControlEntrevistasModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="GestionControlEntrevistasModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="GestionControlEntrevistasModel.AspNetUser" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="GestionControlEntrevistasModel.BolsaTrabajo" Width="1.5" PointX="8.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GestionControlEntrevistasModel.BolsaTrabajo" Width="1.5" PointX="8" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="GestionControlEntrevistasModel.Estatu" Width="1.5" PointX="8.25" PointY="9.125" IsExpanded="true" />
         <EntityTypeShape EntityType="GestionControlEntrevistasModel.Filtro" Width="1.5" PointX="10.5" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="GestionControlEntrevistasModel.Generacion" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GestionControlEntrevistasModel.Historico" Width="1.5" PointX="12.75" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="GestionControlEntrevistasModel.Perfil" Width="1.5" PointX="3.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="GestionControlEntrevistasModel.Recurso" Width="1.5" PointX="8.25" PointY="5.625" IsExpanded="true" />
         <AssociationConnector Association="GestionControlEntrevistasModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="GestionControlEntrevistasModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="GestionControlEntrevistasModel.FK__Recurso__IdUsuar__398D8EEE" ManuallyRouted="false" />
         <AssociationConnector Association="GestionControlEntrevistasModel.FK__Historico__IdFil__44FF419A" ManuallyRouted="false" />
-        <AssociationConnector Association="GestionControlEntrevistasModel.FK__Generacio__IdPer__2A4B4B5E" ManuallyRouted="false" />
-        <AssociationConnector Association="GestionControlEntrevistasModel.FK__Recurso__IdGener__3A81B327" ManuallyRouted="false" />
         <AssociationConnector Association="GestionControlEntrevistasModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="GestionControlEntrevistasModel.Proceso" Width="1.5" PointX="10.5" PointY="4.875" />
+        <EntityTypeShape EntityType="GestionControlEntrevistasModel.Proceso" Width="1.5" PointX="10.5" PointY="4.375" />
         <AssociationConnector Association="GestionControlEntrevistasModel.FK__Proceso__IdBolsa__412EB0B6" />
         <AssociationConnector Association="GestionControlEntrevistasModel.FK__Proceso__IdEstat__403A8C7D" />
         <AssociationConnector Association="GestionControlEntrevistasModel.FK__Historico__IdPro__440B1D61" />
+        <EntityTypeShape EntityType="GestionControlEntrevistasModel.Empresa" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="GestionControlEntrevistasModel.Generacion" Width="1.5" PointX="6.375" PointY="0.875" />
+        <AssociationConnector Association="GestionControlEntrevistasModel.FK__Generacio__IdPer__2A4B4B5E" />
+        <EntityTypeShape EntityType="GestionControlEntrevistasModel.Recurso" Width="1.5" PointX="8.625" PointY="0.75" />
+        <AssociationConnector Association="GestionControlEntrevistasModel.FK__Recurso__IdUsuar__398D8EEE" />
+        <AssociationConnector Association="GestionControlEntrevistasModel.FK__Recurso__IdEmpre__72C60C4A" />
+        <AssociationConnector Association="GestionControlEntrevistasModel.FK__Recurso__IdGener__3A81B327" />
         <AssociationConnector Association="GestionControlEntrevistasModel.FK__Proceso__IdRecur__48CFD27E" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

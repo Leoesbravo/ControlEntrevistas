@@ -23,8 +23,11 @@ namespace DL
         public int IdRecurso { get; set; }
         public string IdUsuario { get; set; }
         public Nullable<int> IdGeneracion { get; set; }
+        public Nullable<byte> IdEmpresa { get; set; }
+        public string CURP { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
+        public virtual Empresa Empresa { get; set; }
         public virtual Generacion Generacion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Proceso> Procesoes { get; set; }

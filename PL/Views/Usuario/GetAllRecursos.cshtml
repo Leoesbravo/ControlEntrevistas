@@ -1,0 +1,76 @@
+﻿@model ML.Recurso
+@{
+    ViewBag.Title = "GetAllRecursos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Lista de Chicos en Entrenamiento</h2>
+<hr />
+@using (Html.BeginForm("GetAllRecursos", "Usuario", FormMethod.Post, new { role = "form", id = "formulario", enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Generacion.IdGeneracion, "Generacion", htmlAttributes: new { @class = "form-label" })
+                @Html.DropDownListFor(model => model.Generacion.IdGeneracion, new SelectList(Model.Generacion.Generaciones, "IdGeneracion", "NombreCompleto"), "Selecciona una Generación", new { @class = "form-control", id = "BolsaTrabajo_IdBolsaTrabajo" })
+            </div>
+        </div>
+        <div class="col-md-4 d-flex align-items-end">
+            <div class="form-group">
+                <input type="submit" value="Buscar" class="btn btn-dark" />
+            </div>
+        </div>
+    </div>
+}
+@if (Model.Recursos != null && Model.Recursos.Count > 0)
+{
+    <br />
+    <table class="table table-bordered table-striped table-hover">
+        <caption>Lista de usuarios registrados</caption>
+        <thead>
+            <tr class="table-dark text-center">
+                <th scope="col">Usuario</th>
+                <th scope="col">Generacion</th>
+                <th scope="col">Empresa</th>
+                <th scope="col">
+                    <button id="selectAllButton" class="btn btn-primary">
+                        <i id="selectAllIcon" class="fa-solid fa-square-check"></i> Seleccionar todos
+                    </button>
+                </th>
+            </tr>
+        </thead>
+        <tbody class="table-secondary ">
+            @foreach (ML.Recurso proceso in Model.Recursos)
+            {
+                <tr class="text-center">
+                    <td>@proceso.Usuario.Nombre @proceso.Usuario.ApellidoPaterno @proceso.Usuario.ApellidoMaterno  </td>
+                    <td>@proceso.Generacion.Perfil.Nombre @proceso.Generacion.Nombre @proceso.Generacion.Anio</td>
+                    <td>@proceso.Empresa.Nombre</td>
+                    <td>
+                        <input class="form-check-input" type="checkbox" value="">
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-end">
+        <button class="btn btn-primary" onclick="enviarCorreo()">
+            <i class="fas fa-envelope"></i> Enviar Correo
+        </button>
+    </div>
+}
+else
+{
+    <br />
+    <h3 class="text-info">Selecciona una generación para mostrar resultados</h3>
+}
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#selectAllButton').click(function () {
+                var checkboxes = $('.form-check-input');
+                checkboxes.prop('checked', !checkboxes.prop('checked'));
+            });
+        });
+    </script>
+}

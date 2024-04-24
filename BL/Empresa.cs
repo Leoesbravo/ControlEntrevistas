@@ -6,18 +6,30 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public class Historico
+    public class Empresa
     {
-        public static ML.Result Add(ML.Proceso proceso)
+        public static ML.Result GetAll()
         {
             ML.Result result = new ML.Result();
             try
             {
                 using (DL.GestionControlEntrevistasEntities context = new DL.GestionControlEntrevistasEntities())
                 {
-                    var query = context.HistoricoAdd(proceso.Historico.Filtro.IdFiltro,proceso.IdProceso,proceso.Historico.Detalle, proceso.Estatus.IdEstatus);
+                    var query = context.Empresas.ToList();
+                    if (query.Count > 0)
+                    {
+                        result.Objects = new List<object>();
 
-                    if (query <= 0)
+                        foreach (var item in query)
+                        {
+                            ML.Empresa empresa = new ML.Empresa();
+                            empresa.IdEmpresa = item.IdEmpresa;
+                            empresa.Nombre = item.Nombre;
+
+                            result.Objects.Add(empresa);
+                        }
+                    }
+                    else
                     {
                         result.Correct = false;
                     }

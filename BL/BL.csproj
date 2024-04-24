@@ -52,8 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BolsaTrabajo.cs" />
+    <Compile Include="Empresa.cs" />
     <Compile Include="Estatus.cs" />
     <Compile Include="Filtro.cs" />
+    <Compile Include="Generacion.cs" />
     <Compile Include="Historico.cs" />
     <Compile Include="Proceso.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

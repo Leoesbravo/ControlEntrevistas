@@ -1,0 +1,87 @@
+﻿@model PL.Models.RegisterRecursoModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<main aria-labelledby="title">
+    <h2 id="title">Registrar Nuevos Usuarios.</h2>
+    @if (ViewBag.result != null && ViewBag.result == true)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fa-regular fa-circle-check fa-lg"></i> <strong>Listo!</strong> Se dio de alta el nuevo usuario.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+
+    @using (Html.BeginForm("RegisterRecursos", "Account", FormMethod.Post, new { role = "form", id = "formulario", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <hr />
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+
+
+        <div class="row">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Nombre, new { @class = "form-label" })
+
+                @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.ApellidoPaterno, new { @class = "form-label" })
+
+                @Html.TextBoxFor(m => m.ApellidoPaterno, new { @class = "form-control" })
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.ApellidoMaterno, new { @class = "form-label" })
+
+                @Html.TextBoxFor(m => m.ApellidoMaterno, new { @class = "form-control" })
+                <br />
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
+
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label" })
+
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirma la contraseña" })
+                <br />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Empresa.IdEmpresa, "Empresa", htmlAttributes: new { @class = "form-label" })
+                @Html.DropDownListFor(model => model.Empresa.IdEmpresa, new SelectList(Model.Empresa.Empresas, "IdEmpresa", "Nombre"), "Selecciona una opción", new { @class = "form-control", id = "BolsaTrabajo_IdBolsaTrabajo" })
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Generacion.IdGeneracion, "Generacion", htmlAttributes: new { @class = "form-label" })
+                @Html.DropDownListFor(model => model.Generacion.IdGeneracion, new SelectList(Model.Generacion.Generaciones, "IdGeneracion", "NombreCompleto"), "Selecciona una opción", new { @class = "form-control", id = "BolsaTrabajo_IdBolsaTrabajo" })
+
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.CURP, new { @class = "col-md-2 col-form-label" })
+                @Html.TextBoxFor(m => m.CURP, new { @class = "form-control" })
+            </div>
+            <div class=" col-md-3">
+                <br />
+                <input type="submit" value="Registrar" class="btn btn-success col-md-4" />
+            </div>
+        </div>
+
+    }
+</main>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+    </script>
+}

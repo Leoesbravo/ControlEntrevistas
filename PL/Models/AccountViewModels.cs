@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ML;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PL.Models
@@ -79,8 +80,48 @@ namespace PL.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-    }
 
+        [Required]
+        [Display(Name = "Nombre")]
+        public string Nombre { get; set; }
+        [Required]
+        [Display(Name = "Apellido Paterno")]
+        public string ApellidoPaterno { get; set; }
+        [Display(Name = "Apellido materno")]
+        public string ApellidoMaterno { get; set; }
+    }
+    public class RegisterRecursoModel
+    {
+        public Generacion Generacion { get; set; }
+        public Empresa Empresa { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirmacion")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Nombre")]
+        public string Nombre { get; set; }
+        [Required]
+        [Display(Name = "Apellido Paterno")]
+        public string ApellidoPaterno { get; set; }
+        [Display(Name = "Apellido Materno")]
+        public string ApellidoMaterno { get; set; }
+        [Required]
+        public string CURP { get; set; }
+    }
     public class ResetPasswordViewModel
     {
         [Required]

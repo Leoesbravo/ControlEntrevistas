@@ -34,11 +34,12 @@ namespace DL
         public virtual DbSet<BolsaTrabajo> BolsaTrabajoes { get; set; }
         public virtual DbSet<Estatu> Estatus { get; set; }
         public virtual DbSet<Filtro> Filtroes { get; set; }
-        public virtual DbSet<Generacion> Generacions { get; set; }
         public virtual DbSet<Historico> Historicoes { get; set; }
         public virtual DbSet<Perfil> Perfils { get; set; }
-        public virtual DbSet<Recurso> Recursoes { get; set; }
         public virtual DbSet<Proceso> Procesoes { get; set; }
+        public virtual DbSet<Empresa> Empresas { get; set; }
+        public virtual DbSet<Generacion> Generacions { get; set; }
+        public virtual DbSet<Recurso> Recursoes { get; set; }
     
         public virtual ObjectResult<ProcesoGetAllByIdRecurso_Result> ProcesoGetAllByIdRecurso(Nullable<int> idRecurso)
         {
@@ -49,7 +50,7 @@ namespace DL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProcesoGetAllByIdRecurso_Result>("ProcesoGetAllByIdRecurso", idRecursoParameter);
         }
     
-        public virtual int ProcesoAdd(Nullable<byte> idEstatus, Nullable<byte> idBolsaTrabajo, string numeroContacto, string empresa, string cliente, string ligaVacante, Nullable<bool> postulado, Nullable<System.DateTime> fechaContacto, Nullable<int> idRecurso)
+        public virtual int ProcesoAdd(Nullable<byte> idEstatus, Nullable<byte> idBolsaTrabajo, string numeroContacto, string empresa, string cliente, string ligaVacante, Nullable<bool> postulado, Nullable<System.DateTime> fechaContacto, Nullable<int> idRecurso, Nullable<decimal> salario, string contactoRH, string correoRH, string duracionProceso, string direccionVacante)
         {
             var idEstatusParameter = idEstatus.HasValue ?
                 new ObjectParameter("IdEstatus", idEstatus) :
@@ -87,65 +88,27 @@ namespace DL
                 new ObjectParameter("IdRecurso", idRecurso) :
                 new ObjectParameter("IdRecurso", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProcesoAdd", idEstatusParameter, idBolsaTrabajoParameter, numeroContactoParameter, empresaParameter, clienteParameter, ligaVacanteParameter, postuladoParameter, fechaContactoParameter, idRecursoParameter);
-        }
+            var salarioParameter = salario.HasValue ?
+                new ObjectParameter("Salario", salario) :
+                new ObjectParameter("Salario", typeof(decimal));
     
-        public virtual int ProcesoAddFiltro(Nullable<int> idProceso, Nullable<byte> idFiltro, string detalle)
-        {
-            var idProcesoParameter = idProceso.HasValue ?
-                new ObjectParameter("IdProceso", idProceso) :
-                new ObjectParameter("IdProceso", typeof(int));
+            var contactoRHParameter = contactoRH != null ?
+                new ObjectParameter("ContactoRH", contactoRH) :
+                new ObjectParameter("ContactoRH", typeof(string));
     
-            var idFiltroParameter = idFiltro.HasValue ?
-                new ObjectParameter("IdFiltro", idFiltro) :
-                new ObjectParameter("IdFiltro", typeof(byte));
+            var correoRHParameter = correoRH != null ?
+                new ObjectParameter("CorreoRH", correoRH) :
+                new ObjectParameter("CorreoRH", typeof(string));
     
-            var detalleParameter = detalle != null ?
-                new ObjectParameter("Detalle", detalle) :
-                new ObjectParameter("Detalle", typeof(string));
+            var duracionProcesoParameter = duracionProceso != null ?
+                new ObjectParameter("DuracionProceso", duracionProceso) :
+                new ObjectParameter("DuracionProceso", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProcesoAddFiltro", idProcesoParameter, idFiltroParameter, detalleParameter);
-        }
+            var direccionVacanteParameter = direccionVacante != null ?
+                new ObjectParameter("DireccionVacante", direccionVacante) :
+                new ObjectParameter("DireccionVacante", typeof(string));
     
-        public virtual int ProcesoUpdate(Nullable<byte> idEstatus, Nullable<byte> idBolsaTrabajo, string numeroContacto, string empresa, string cliente, string ligaVacante, Nullable<bool> postulado, Nullable<System.DateTime> fechaContacto, Nullable<int> idRecurso)
-        {
-            var idEstatusParameter = idEstatus.HasValue ?
-                new ObjectParameter("IdEstatus", idEstatus) :
-                new ObjectParameter("IdEstatus", typeof(byte));
-    
-            var idBolsaTrabajoParameter = idBolsaTrabajo.HasValue ?
-                new ObjectParameter("IdBolsaTrabajo", idBolsaTrabajo) :
-                new ObjectParameter("IdBolsaTrabajo", typeof(byte));
-    
-            var numeroContactoParameter = numeroContacto != null ?
-                new ObjectParameter("NumeroContacto", numeroContacto) :
-                new ObjectParameter("NumeroContacto", typeof(string));
-    
-            var empresaParameter = empresa != null ?
-                new ObjectParameter("Empresa", empresa) :
-                new ObjectParameter("Empresa", typeof(string));
-    
-            var clienteParameter = cliente != null ?
-                new ObjectParameter("Cliente", cliente) :
-                new ObjectParameter("Cliente", typeof(string));
-    
-            var ligaVacanteParameter = ligaVacante != null ?
-                new ObjectParameter("LigaVacante", ligaVacante) :
-                new ObjectParameter("LigaVacante", typeof(string));
-    
-            var postuladoParameter = postulado.HasValue ?
-                new ObjectParameter("Postulado", postulado) :
-                new ObjectParameter("Postulado", typeof(bool));
-    
-            var fechaContactoParameter = fechaContacto.HasValue ?
-                new ObjectParameter("FechaContacto", fechaContacto) :
-                new ObjectParameter("FechaContacto", typeof(System.DateTime));
-    
-            var idRecursoParameter = idRecurso.HasValue ?
-                new ObjectParameter("IdRecurso", idRecurso) :
-                new ObjectParameter("IdRecurso", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProcesoUpdate", idEstatusParameter, idBolsaTrabajoParameter, numeroContactoParameter, empresaParameter, clienteParameter, ligaVacanteParameter, postuladoParameter, fechaContactoParameter, idRecursoParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProcesoAdd", idEstatusParameter, idBolsaTrabajoParameter, numeroContactoParameter, empresaParameter, clienteParameter, ligaVacanteParameter, postuladoParameter, fechaContactoParameter, idRecursoParameter, salarioParameter, contactoRHParameter, correoRHParameter, duracionProcesoParameter, direccionVacanteParameter);
         }
     
         public virtual ObjectResult<ProcesoGetById_Result> ProcesoGetById(Nullable<int> idProceso)
@@ -155,6 +118,131 @@ namespace DL
                 new ObjectParameter("IdProceso", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProcesoGetById_Result>("ProcesoGetById", idProcesoParameter);
+        }
+    
+        public virtual int ProcesoUpdate(Nullable<byte> idEstatus, Nullable<byte> idBolsaTrabajo, string numeroContacto, string empresa, string cliente, string ligaVacante, Nullable<bool> postulado, Nullable<System.DateTime> fechaContacto, Nullable<int> idProceso, Nullable<decimal> salario, string contactoRH, string correoRH, string duracionProceso, string direccionVacante)
+        {
+            var idEstatusParameter = idEstatus.HasValue ?
+                new ObjectParameter("IdEstatus", idEstatus) :
+                new ObjectParameter("IdEstatus", typeof(byte));
+    
+            var idBolsaTrabajoParameter = idBolsaTrabajo.HasValue ?
+                new ObjectParameter("IdBolsaTrabajo", idBolsaTrabajo) :
+                new ObjectParameter("IdBolsaTrabajo", typeof(byte));
+    
+            var numeroContactoParameter = numeroContacto != null ?
+                new ObjectParameter("NumeroContacto", numeroContacto) :
+                new ObjectParameter("NumeroContacto", typeof(string));
+    
+            var empresaParameter = empresa != null ?
+                new ObjectParameter("Empresa", empresa) :
+                new ObjectParameter("Empresa", typeof(string));
+    
+            var clienteParameter = cliente != null ?
+                new ObjectParameter("Cliente", cliente) :
+                new ObjectParameter("Cliente", typeof(string));
+    
+            var ligaVacanteParameter = ligaVacante != null ?
+                new ObjectParameter("LigaVacante", ligaVacante) :
+                new ObjectParameter("LigaVacante", typeof(string));
+    
+            var postuladoParameter = postulado.HasValue ?
+                new ObjectParameter("Postulado", postulado) :
+                new ObjectParameter("Postulado", typeof(bool));
+    
+            var fechaContactoParameter = fechaContacto.HasValue ?
+                new ObjectParameter("FechaContacto", fechaContacto) :
+                new ObjectParameter("FechaContacto", typeof(System.DateTime));
+    
+            var idProcesoParameter = idProceso.HasValue ?
+                new ObjectParameter("IdProceso", idProceso) :
+                new ObjectParameter("IdProceso", typeof(int));
+    
+            var salarioParameter = salario.HasValue ?
+                new ObjectParameter("Salario", salario) :
+                new ObjectParameter("Salario", typeof(decimal));
+    
+            var contactoRHParameter = contactoRH != null ?
+                new ObjectParameter("ContactoRH", contactoRH) :
+                new ObjectParameter("ContactoRH", typeof(string));
+    
+            var correoRHParameter = correoRH != null ?
+                new ObjectParameter("CorreoRH", correoRH) :
+                new ObjectParameter("CorreoRH", typeof(string));
+    
+            var duracionProcesoParameter = duracionProceso != null ?
+                new ObjectParameter("DuracionProceso", duracionProceso) :
+                new ObjectParameter("DuracionProceso", typeof(string));
+    
+            var direccionVacanteParameter = direccionVacante != null ?
+                new ObjectParameter("DireccionVacante", direccionVacante) :
+                new ObjectParameter("DireccionVacante", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProcesoUpdate", idEstatusParameter, idBolsaTrabajoParameter, numeroContactoParameter, empresaParameter, clienteParameter, ligaVacanteParameter, postuladoParameter, fechaContactoParameter, idProcesoParameter, salarioParameter, contactoRHParameter, correoRHParameter, duracionProcesoParameter, direccionVacanteParameter);
+        }
+    
+        public virtual int HistoricoAdd(Nullable<int> idFiltro, Nullable<int> idProceso, string detalle, Nullable<int> idEstatus)
+        {
+            var idFiltroParameter = idFiltro.HasValue ?
+                new ObjectParameter("IdFiltro", idFiltro) :
+                new ObjectParameter("IdFiltro", typeof(int));
+    
+            var idProcesoParameter = idProceso.HasValue ?
+                new ObjectParameter("IdProceso", idProceso) :
+                new ObjectParameter("IdProceso", typeof(int));
+    
+            var detalleParameter = detalle != null ?
+                new ObjectParameter("Detalle", detalle) :
+                new ObjectParameter("Detalle", typeof(string));
+    
+            var idEstatusParameter = idEstatus.HasValue ?
+                new ObjectParameter("IdEstatus", idEstatus) :
+                new ObjectParameter("IdEstatus", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("HistoricoAdd", idFiltroParameter, idProcesoParameter, detalleParameter, idEstatusParameter);
+        }
+    
+        public virtual int RecursoAdd(string idUsuario, Nullable<int> idGeneracion, Nullable<int> idEmpresa, string cURP)
+        {
+            var idUsuarioParameter = idUsuario != null ?
+                new ObjectParameter("IdUsuario", idUsuario) :
+                new ObjectParameter("IdUsuario", typeof(string));
+    
+            var idGeneracionParameter = idGeneracion.HasValue ?
+                new ObjectParameter("IdGeneracion", idGeneracion) :
+                new ObjectParameter("IdGeneracion", typeof(int));
+    
+            var idEmpresaParameter = idEmpresa.HasValue ?
+                new ObjectParameter("IdEmpresa", idEmpresa) :
+                new ObjectParameter("IdEmpresa", typeof(int));
+    
+            var cURPParameter = cURP != null ?
+                new ObjectParameter("CURP", cURP) :
+                new ObjectParameter("CURP", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("RecursoAdd", idUsuarioParameter, idGeneracionParameter, idEmpresaParameter, cURPParameter);
+        }
+    
+        public virtual ObjectResult<RecursoGetAll_Result> RecursoGetAll(Nullable<int> idGeneracion, Nullable<int> idEmpresa)
+        {
+            var idGeneracionParameter = idGeneracion.HasValue ?
+                new ObjectParameter("IdGeneracion", idGeneracion) :
+                new ObjectParameter("IdGeneracion", typeof(int));
+    
+            var idEmpresaParameter = idEmpresa.HasValue ?
+                new ObjectParameter("IdEmpresa", idEmpresa) :
+                new ObjectParameter("IdEmpresa", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RecursoGetAll_Result>("RecursoGetAll", idGeneracionParameter, idEmpresaParameter);
+        }
+    
+        public virtual ObjectResult<HistoricoGetByIdProceso_Result> HistoricoGetByIdProceso(Nullable<int> idProceso)
+        {
+            var idProcesoParameter = idProceso.HasValue ?
+                new ObjectParameter("IdProceso", idProceso) :
+                new ObjectParameter("IdProceso", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<HistoricoGetByIdProceso_Result>("HistoricoGetByIdProceso", idProcesoParameter);
         }
     }
 }

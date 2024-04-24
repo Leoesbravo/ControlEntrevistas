@@ -269,6 +269,9 @@
     <Content Include="Views\Roll\AssignUserToRole.cshtml" />
     <Content Include="Views\Proceso\Index.cshtml" />
     <Content Include="Views\Proceso\AddProceso.cshtml" />
+    <Content Include="Views\Account\CrearUsuarios.cshtml" />
+    <Content Include="Views\Account\RegisterRecursos.cshtml" />
+    <Content Include="Views\Usuario\GetAllRecursos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,20 +12,17 @@ namespace DL
     using System;
     using System.Collections.Generic;
     
-    public partial class Generacion
+    public partial class Empresa
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Generacion()
+        public Empresa()
         {
             this.Recursoes = new HashSet<Recurso>();
         }
     
-        public int IdGeneracion { get; set; }
+        public byte IdEmpresa { get; set; }
         public string Nombre { get; set; }
-        public Nullable<byte> IdPerfil { get; set; }
-        public string Anio { get; set; }
     
-        public virtual Perfil Perfil { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Recurso> Recursoes { get; set; }
     }

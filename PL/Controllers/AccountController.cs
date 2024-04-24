@@ -7,7 +7,9 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.BuilderProperties;
 using Microsoft.Owin.Security;
+using ML;
 using PL.Models;
 
 namespace PL.Controllers
@@ -58,6 +60,11 @@ namespace PL.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+        [AllowAnonymous]
+        public ActionResult CrearUsuarios()
+        {
             return View();
         }
 
@@ -142,6 +149,22 @@ namespace PL.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "Admin")]
+        public ActionResult RegisterRecursos()
+        {
+            ML.Result resultGeneracion = BL.Generacion.GetAll();
+            ML.Result resultEmpresa = BL.Empresa.GetAll();
+            RegisterRecursoModel model = new RegisterRecursoModel();
+            model.Generacion = new ML.Generacion();
+            model.Generacion.Generaciones = resultGeneracion.Objects;
+            model.Empresa = new ML.Empresa();
+            model.Empresa.Empresas = resultEmpresa.Objects;
+            if (TempData != null && TempData.ContainsKey("result"))
+            {
+                ViewBag.result = TempData["result"];
+            }
+            return View(model);
+        }
 
         //
         // POST: /Account/Register
@@ -152,7 +175,7 @@ namespace PL.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Nombre = model.Nombre, ApellidoPaterno = model.ApellidoPaterno, ApellidoMaterno = model.ApellidoMaterno };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -172,7 +195,40 @@ namespace PL.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterRecursos(RegisterRecursoModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Nombre = model.Nombre, ApellidoPaterno = model.ApellidoPaterno, ApellidoMaterno = model.ApellidoMaterno };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
+                    ML.Result resultRecurso = BL.Recurso.GetByEmail(model.Email);
+                    
+                    ML.Recurso recurso = new ML.Recurso();
+                    recurso.Empresa = new ML.Empresa();
+                    recurso.Usuario = (ML.Usuario)resultRecurso.Object;
+                    recurso.Generacion = new ML.Generacion();                 
+
+                    recurso.Empresa.IdEmpresa = model.Empresa.IdEmpresa;
+                    recurso.Generacion.IdGeneracion = model.Generacion.IdGeneracion;
+
+                    BL.Recurso.Add(recurso);
+
+
+                    TempData["result"] = true;
+
+                    return RedirectToAction("RegisterRecursos");
+                }
+                AddErrors(result);
+            }
+            return View(model);
+        }
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
@@ -224,7 +280,7 @@ namespace PL.Controllers
 
         //
         // GET: /Account/ForgotPasswordConfirmation
-        [AllowAnonymous]
+        [AllowAnonymous]    
         public ActionResult ForgotPasswordConfirmation()
         {
             return View();

@@ -65,6 +65,9 @@
     <Compile Include="BolsaTrabajo.cs">
       <DependentUpon>ModelGestionControlEntrevistas.tt</DependentUpon>
     </Compile>
+    <Compile Include="Empresa.cs">
+      <DependentUpon>ModelGestionControlEntrevistas.tt</DependentUpon>
+    </Compile>
     <Compile Include="Estatu.cs">
       <DependentUpon>ModelGestionControlEntrevistas.tt</DependentUpon>
     </Compile>
@@ -75,6 +78,9 @@
       <DependentUpon>ModelGestionControlEntrevistas.tt</DependentUpon>
     </Compile>
     <Compile Include="Historico.cs">
+      <DependentUpon>ModelGestionControlEntrevistas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HistoricoGetByIdProceso_Result.cs">
       <DependentUpon>ModelGestionControlEntrevistas.tt</DependentUpon>
     </Compile>
     <Compile Include="ModelGestionControlEntrevistas.Context.cs">
@@ -106,6 +112,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recurso.cs">
+      <DependentUpon>ModelGestionControlEntrevistas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RecursoGetAll_Result.cs">
       <DependentUpon>ModelGestionControlEntrevistas.tt</DependentUpon>
     </Compile>
   </ItemGroup>

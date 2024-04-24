@@ -23,5 +23,10 @@ namespace DL
         public Nullable<bool> Postulado { get; set; }
         public Nullable<System.DateTime> FechaContacto { get; set; }
         public Nullable<int> IdRecurso { get; set; }
+        public Nullable<decimal> Salario { get; set; }
+        public string ContacoRH { get; set; }
+        public string CorreoRH { get; set; }
+        public string DuracionProceso { get; set; }
+        public string DireccionVacante { get; set; }
     }
 }

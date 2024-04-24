@@ -61,7 +61,16 @@ namespace PL.Controllers
             {
                 IdRecurso = (int)HttpContext.Session["Recurso"]
             };
-            ML.Result result = BL.Proceso.Add(proceso);
+            ML.Result result = new ML.Result();
+            if (proceso.IdProceso > 0)
+            {
+                result = BL.Proceso.UpdateProceso(proceso);
+            }
+            else
+            {
+                result = BL.Proceso.Add(proceso);
+            }
+
             if (result.Correct)
             {
                 return RedirectToAction("Index", "Proceso");
@@ -91,7 +100,7 @@ namespace PL.Controllers
 
         }
         [HttpPost]
-        public ActionResult AddFiltro(ML.Proceso proceso)
+        public ActionResult AddHistorico(ML.Proceso proceso)
         {
             ML.Result result = BL.Historico.Add(proceso);
             if (result.Correct)
@@ -116,6 +125,10 @@ namespace PL.Controllers
             {
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
+        }
+        public JsonResult GetByIdProceso(int idProceso)
+        {
+            return Json(idProceso);
         }
     }
 }

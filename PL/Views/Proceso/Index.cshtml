@@ -7,27 +7,28 @@
 <div class="container">
     <h2 class="mt-5">Mi Panel</h2>
     <hr />
-    <a class="btn btn-success mb-3" onclick="OpenForm()">
+    <a class="btn btn-success mb-3" onclick="NuevoProceso()">
         <i class="fas fa-plus-circle me-1"></i>Nueva Proceso
     </a>
     <section id="formulario" style="display: none;">
-        <h2 class="mt-5">Agregar Nuevo Proceso</h2>
+        <h2 id="labelForm" class="mt-5">Agregar Nuevo Proceso</h2>
         <hr />
 
         @using (Html.BeginForm("AddProceso", "Proceso", FormMethod.Post, new { enctype = "multipart/form-data", @class = "mt-4", @id = "form" }))
         {
+            @Html.HiddenFor(model => model.IdProceso, new { @id = "IdProceso" })
             <div class="row">
                 <div class="col-md-3">
                     @Html.LabelFor(model => model.Empresa, htmlAttributes: new { @class = "form-label" })
-                    @Html.TextBoxFor(model => model.Empresa, new { @class = "form-control",@placheholder="" })
+                    @Html.TextBoxFor(model => model.Empresa, new { @class = "form-control", @placheholder = "", @id = "Empresa" })
                 </div>
                 <div class="col-md-3">
                     @Html.LabelFor(model => model.Cliente, htmlAttributes: new { @class = "form-label" })
-                    @Html.TextBoxFor(model => model.Cliente, new { @class = "form-control", @placeholder = "Dejar vacio si no hay" })
+                    @Html.TextBoxFor(model => model.Cliente, new { @class = "form-control", @placeholder = "Dejar vacio si no hay", @id = "Cliente" })
                 </div>
                 <div class="col-md-3">
                     @Html.LabelFor(model => model.NumeroContacto, htmlAttributes: new { @class = "form-label" })
-                    @Html.TextBoxFor(model => model.NumeroContacto, new { @class = "form-control" })
+                    @Html.TextBoxFor(model => model.NumeroContacto, new { @class = "form-control", @id = "NumeroContacto" })
                 </div>
                 <div class="col-md-3">
                     @Html.LabelFor(model => model.Postulado, htmlAttributes: new { @class = "form-label" })
@@ -44,28 +45,51 @@
             <div class="row">
                 <div class="col-md-3">
                     @Html.LabelFor(model => model.LigaVacante, htmlAttributes: new { @class = "form-label" })
-                    @Html.TextBoxFor(model => model.LigaVacante, new { @class = "form-control", @placeholder="Coloca el link de la vacante" })
+                    @Html.TextBoxFor(model => model.LigaVacante, new { @class = "form-control", @placeholder = "Coloca el link de la vacante", id = "LigaVacante" })
                 </div>
                 <div class="col-md-3">
                     @Html.LabelFor(model => model.Estatus.IdEstatus, "Estatus", htmlAttributes: new { @class = "form-label" })
-                    @Html.DropDownListFor(model => model.Estatus.IdEstatus, new SelectList(Model.Estatus.EstatusList, "IdEstatus", "Descripcion"), "Selecciona una opción", new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.Estatus.IdEstatus, new SelectList(Model.Estatus.EstatusList, "IdEstatus", "Descripcion"), "Selecciona una opción", new { @class = "form-control", id = "Estatus_IdEstatus" })
 
 
                 </div>
                 <div class="col-md-3">
                     @Html.LabelFor(model => model.BolsaTrabajo.IdBolsaTrabajo, "Bolsa de Trabajo", htmlAttributes: new { @class = "form-label" })
-                    @Html.DropDownListFor(model => model.BolsaTrabajo.IdBolsaTrabajo, new SelectList(Model.BolsaTrabajo.MedioList, "IdBolsaTrabajo", "Medio"), "Selecciona una opción", new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.BolsaTrabajo.IdBolsaTrabajo, new SelectList(Model.BolsaTrabajo.MedioList, "IdBolsaTrabajo", "Medio"), "Selecciona una opción", new { @class = "form-control", id = "BolsaTrabajo_IdBolsaTrabajo" })
 
                 </div>
                 <div class="col-md-3">
                     @Html.LabelFor(model => model.FechaContacto, htmlAttributes: new { @class = "form-label" })
-                    @Html.TextBoxFor(model => model.FechaContacto, new { @class = "form-control", @type = "date" })
+                    @Html.TextBoxFor(model => model.FechaContacto, new { @class = "form-control", @type = "date", id = "FechaContacto" })
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.OfertaEconomica, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.OfertaEconomica, new { @class = "form-control", @placeholder = "Colocar si son brutos o libres", id = "OfertaEconomica" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.ContactoRH, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.ContactoRH, new { @class = "form-control", @placeholder = "Nombre de la persona", id = "ContactoRH" })
+                </div>
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.CorreoRH, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.CorreoRH, new { @class = "form-control", id = "CorreoRH" })
+                </div>
+                <div class="col-md-2">
+                    @Html.LabelFor(model => model.DuracionProceso, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.DuracionProceso, new { @class = "form-control", id = "DuracionProceso" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.DireccionVacante, htmlAttributes: new { @class = "form-label" })
+                    @Html.TextBoxFor(model => model.DireccionVacante, new { @class = "form-control", @placeholder = "Direccion donde se labora", id = "DireccionVacante" })
                 </div>
             </div>
             <br />
             <div class="row justify-content-center">
                 <div class="col-md-6 text-center">
-                    <input type="submit" value="Enviar" class="btn btn-success col-md-6" />
+                    <input id="btnsubmit" type="submit" value="Guardar" class="btn btn-success col-md-6" />
                     <input onclick="limpiarForm()" value="Cancelar" class="btn btn-danger col-md-6" />
                 </div>
             </div>
@@ -96,18 +120,13 @@
                         <td>@proceso.Estatus.Descripcion</td>
                         <td>@proceso.Estatus.Descripcion</td>
                         <td>
-                            <a class="btn btn-outline-warning" data-bs-toggle="tooltip" data-bs-title="Editar Proceso"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a class="btn btn-outline-info" data-bs-toggle="tooltip" data-bs-title="Agregar Filtro" ><i class="fa-regular fa-square-plus"></i></a>
-                            <a class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-title="Ver Detalle" onclick="VerDetalle('@proceso.IdProceso')"> <i class="fa-solid fa-magnifying-glass"></i></a>
+                            <a class="btn btn-outline-warning" data-bs-toggle="tooltip" data-bs-title="Editar Proceso" onclick="EditarProceso('@proceso.IdProceso')"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <span data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="AgregarId('@proceso.IdProceso')">
+                                <a class="btn btn-outline-info" data-bs-toggle="tooltip" data-bs-title="Agregar Filtro"><i class="fa-regular fa-square-plus"></i></a>
+                            </span>
+                            <a class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-title="Ver Detalle" onclick="getHistoricos('@proceso.IdProceso')"> <i class="fa-solid fa-magnifying-glass"></i></a>
                             <a class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-title="Eliminar Proceso"> <i class="fa-solid fa-delete-left"></i></a>
                         </td>
-                    </tr>
-                    <tr id="@proceso.IdProceso" style="display: none;">
-                        <td>@proceso.Empresa</td>
-                        <td>@proceso.FechaContacto</td>
-                        <td>@proceso.Estatus.Descripcion</td>
-                        <td>@proceso.Estatus.Descripcion</td>
-                        <td>@proceso.Estatus.Descripcion</td>
                     </tr>
                 }
             </tbody>
@@ -118,6 +137,40 @@
         <h3 class="text-danger">No tienes procesos registrados</h3>
     }
 
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Nuevo Filtro</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="historicoContent">
+                @using (Html.BeginForm("AddHistorico", "Proceso", FormMethod.Post, new { enctype = "multipart/form-data", @class = "mt-4", @id = "form" }))
+                {
+                    <div class="row mb-3">
+                        @Html.HiddenFor(model => model.IdProceso, new { @id = "IdProcesoModal" })
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.Estatus.IdEstatus, "Estatus", htmlAttributes: new { @class = "form-label" })
+                            @Html.DropDownListFor(model => model.Estatus.IdEstatus, new SelectList(Model.Estatus.EstatusList, "IdEstatus", "Descripcion"), "Selecciona una opción", new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.Historico.Filtro.Filtros, "Filtro", htmlAttributes: new { @class = "form-label" })
+                            @Html.DropDownListFor(model => model.Historico.Filtro.IdFiltro, new SelectList(Model.Historico.Filtro.Filtros, "IdFiltro", "Descripcion"), "Selecciona una opción", new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.Historico.Detalle, htmlAttributes: new { @class = "form-label" })
+                            @Html.TextAreaFor(model => model.Historico.Detalle, new { @class = "form-control", @placeholder = "Detalle el proceso realizado" })
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Guardar</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </div>
 
 @{
@@ -133,11 +186,15 @@
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
     function VerDetalle(id) {
-        var detalleRow = $('#' + id);
-        detalleRow.toggle();
+        
+    }
+    function NuevoProceso() {
+        $('#form')[0].reset();
+        $('#labelForm').text('Agregar nuevo proceso')
+        OpenForm();
     }
     function OpenForm() {
-        $('#formulario').slideToggle();
+        $('#formulario').slideToggle(1000);
         $('html, body').animate({
             scrollTop: $('#formulario').offset().top
         }, 'slow');
@@ -145,6 +202,85 @@
     function limpiarForm() {
         $('#formulario').slideToggle(1000);
         $('#form')[0].reset();
+    }
+    function EditarProceso(idProceso) {
+         $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetById")',
+                dataType: 'json',
+                data: { idProceso: idProceso },
+             success: function (data) {
+                 $('#form')[0].reset();
+                 $('#Empresa').val(data.Empresa);
+                 $('#Cliente').val(data.Cliente);
+                 $('#NumeroContacto').val(data.NumeroContacto);
+                 $('#LigaVacante').val(data.LigaVacante);
+                 $('#Estatus_IdEstatus').val(data.Estatus.IdEstatus);
+                 $('#BolsaTrabajo_IdBolsaTrabajo').val(data.BolsaTrabajo.IdBolsaTrabajo);
+                 $('#FechaContacto').val(data.FechaContacto);
+                 $('#OfertaEconomica').val(data.OfertaEconomica);
+                 $('#ContactoRH').val(data.ContactoRH);
+                 $('#CorreoRH').val(data.CorreoRH);
+                 $('#DuracionProceso').val(data.DuracionProceso);
+                 $('#DireccionVacante').val(data.DireccionVacante);
+                 $('#IdProceso').val(data.IdProceso);
+                 $('#labelForm').text('Actualizar Proceso');
+                 $('#postulado-true').prop('checked', data.Postulado === true);
+                 $('#postulado-false').prop('checked', data.Postulado === false);
+                 if (!$('#formulario').is(':visible')) {
+                     OpenForm();
+                 }
+                 else {
+                     $('html, body').animate({
+                         scrollTop: $('#formulario').offset().top
+                     }, 'slow');
+                 }
+             },
+             error: function (xhr, textStatus, errorThrown) {
+                 console.error('Error en la solicitud:', textStatus, errorThrown);
+             }
+         });
+    }
+    function AgregarId(idProceso) {
+        $('#IdProcesoModal').val(idProceso);
+    }
+    function getHistoricos(idProceso) {
+        $.ajax({
+            url: '/Proceso/GetByIdProceso',
+            type: 'GET',
+            data: { id: idProceso },
+            success: function (response) {
+                // Limpiar el contenido anterior del modal
+                $('#historicoContent').empty();
+
+                // Agregar cada historico al modal
+                response.forEach(function (historico) {
+                    $('#historicoContent').append(
+                        '<div class="row mb-3">' +
+                        '<div class="col-md-4">' +
+                        '<label>Estatus: </label>' +
+                        '<input type="text" class="form-control" value="' + historico.Estatus + '" readonly />' +
+                        '</div>' +
+                        '<div class="col-md-4">' +
+                        '<label>Filtro: </label>' +
+                        '<input type="text" class="form-control" value="' + historico.Filtro + '" readonly />' +
+                        '</div>' +
+                        '<div class="col-md-4">' +
+                        '<label>Fecha de Modificación: </label>' +
+                        '<input type="text" class="form-control" value="' + historico.FechaModificacion + '" readonly />' +
+                        '</div>' +
+                        '<div class="col-md-12">' +
+                        '<label>Detalle: </label>' +
+                        '<textarea class="form-control" readonly>' + historico.Detalle + '</textarea>' +
+                        '</div>' +
+                        '</div>'
+                    );
+                });
+            },
+            error: function () {
+                alert('Ocurrió un error al cargar los historicos.');
+            }
+        });
     }
 </script>
 

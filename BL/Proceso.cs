@@ -64,7 +64,9 @@ namespace BL
             {
                 using (DL.GestionControlEntrevistasEntities context = new DL.GestionControlEntrevistasEntities())
                 {
-                    var query = context.ProcesoAdd(proceso.Estatus.IdEstatus, proceso.BolsaTrabajo.IdBolsaTrabajo, proceso.NumeroContacto, proceso.Empresa, proceso.Cliente, proceso.LigaVacante, proceso.Postulado, DateTime.Parse(proceso.FechaContacto), proceso.Recurso.IdRecurso);
+                    var query = context.ProcesoAdd(proceso.Estatus.IdEstatus, proceso.BolsaTrabajo.IdBolsaTrabajo, proceso.NumeroContacto,
+                        proceso.Empresa, proceso.Cliente, proceso.LigaVacante, proceso.Postulado, DateTime.Parse(proceso.FechaContacto),
+                        proceso.Recurso.IdRecurso, proceso.OfertaEconomica, proceso.ContactoRH, proceso.CorreoRH, proceso.DuracionProceso, proceso.DireccionVacante);
 
                     if (query <= 0)
                     {
@@ -87,7 +89,9 @@ namespace BL
             {
                 using (DL.GestionControlEntrevistasEntities context = new DL.GestionControlEntrevistasEntities())
                 {
-                    var query = context.ProcesoAdd(proceso.Estatus.IdEstatus, proceso.BolsaTrabajo.IdBolsaTrabajo, proceso.NumeroContacto, proceso.Empresa, proceso.Cliente, proceso.LigaVacante, proceso.Postulado, DateTime.Parse(proceso.FechaContacto), proceso.Recurso.IdRecurso);
+                    var query = context.ProcesoUpdate(proceso.Estatus.IdEstatus, proceso.BolsaTrabajo.IdBolsaTrabajo, proceso.NumeroContacto,
+                        proceso.Empresa, proceso.Cliente, proceso.LigaVacante, proceso.Postulado, DateTime.Parse(proceso.FechaContacto), 
+                        proceso.IdProceso, proceso.OfertaEconomica,proceso.ContactoRH,proceso.CorreoRH,proceso.DuracionProceso, proceso.DireccionVacante);
 
                     if (query <= 0)
                     {
@@ -124,6 +128,11 @@ namespace BL
                         proceso.Cliente = obj.Cliente;
                         proceso.LigaVacante = obj.LigaVacante;
                         proceso.NumeroContacto = obj.NumeroContacto;
+                        proceso.OfertaEconomica = obj.Salario.Value;
+                        proceso.ContactoRH = obj.ContacoRH;
+                        proceso.CorreoRH = obj.CorreoRH;
+                        proceso.DuracionProceso = obj.DuracionProceso;
+                        proceso.DireccionVacante = obj.DireccionVacante;
 
                         proceso.Estatus = new ML.Estatus();
                         proceso.Estatus.IdEstatus = obj.IdEstatus.Value;

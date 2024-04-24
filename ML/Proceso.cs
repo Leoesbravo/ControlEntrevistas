@@ -19,6 +19,11 @@ namespace ML
         public string FechaContacto { get; set; }
         public string LigaVacante { get; set; }
         public bool Postulado { get; set; }
+        public decimal OfertaEconomica { get; set; }
+        public string ContactoRH { get; set; }
+        public string CorreoRH { get; set; }
+        public string DuracionProceso { get; set; }
+        public string DireccionVacante { get; set; }
         public List<object> Procesos { get; set; }
     }
 }
